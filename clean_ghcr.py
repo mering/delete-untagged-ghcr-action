@@ -17,13 +17,17 @@ def get_url(path):
 
 def get_base_headers():
     return {
-        "Authorization": "token {}".format(args.token),
+        "Authorization": "Bearer {}".format(args.token),
         "Accept": "application/vnd.github.v3+json",
     }
 
+class St:
+    ok: bool = True
+    text: str = ""
 
 def del_req(path):
-    res = requests.delete(get_url(path), headers=get_base_headers())
+    #res = requests.delete(get_url(path), headers=get_base_headers())
+    res = St()
     if res.ok:
         print(f"Deleted {path}")
     else:
@@ -41,6 +45,7 @@ def get_req(path, params=None):
     another_page = True
     result = []
     while another_page:
+        print(f"{url=}, headers={get_base_headers()}, {params=}", flush=True)
         response = requests.get(url, headers=get_base_headers(), params=params)
         if not response.ok:
             raise Exception(response.text)
@@ -227,6 +232,7 @@ def get_args():
 
 
 if __name__ == "__main__":
+    print("Hello from main()")
     args = get_args()
     delete_pkgs(
         owner=args.repository_owner,
