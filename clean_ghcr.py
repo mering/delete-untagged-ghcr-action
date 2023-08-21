@@ -17,7 +17,7 @@ def get_url(path):
 
 def get_base_headers():
     return {
-        "Authorization": "Bearer {}".format(args.token),
+        "Authorization": "token {}".format(args.token),
         "Accept": "application/vnd.github.v3+json",
     }
 
